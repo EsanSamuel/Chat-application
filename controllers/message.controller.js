@@ -4,7 +4,7 @@ import Message from "../models/message.model.js";
 export const sendMessage = async (req, res) => {
   try {
     const { message } = req.body;
-    //calling id as 'userchattingId'
+    //calling id as 'receiverId'
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
