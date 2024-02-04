@@ -5,18 +5,22 @@ const secret = "jwtsecret";
 
 const protectRoute = async (req, res, next) => {
 	try {
+
+//calling token from cookie 
 		const token = req.cookies.jwt;
 
 		if (!token) {
 			return res.status(401).json({ error: "Unauthorized - No Token Provided" });
 		}
 
+//decoing the encoded jwt user data
 		const decoded = jwt.verify(token, secret);
 
 		if (!decoded) {
 			return res.status(401).json({ error: "Unauthorized - Invalid Token" });
 		}
 
+//finding decided user by id and 
 		const user = await User.findById(decoded.userId).select("-password");
 
 		if (!user) {
